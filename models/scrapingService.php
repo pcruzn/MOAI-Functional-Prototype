@@ -25,14 +25,7 @@ class ScrapingService {
 		$result	 = 	mysql_query($encounterSource) 
 					or die('Consulta fallida: ' . mysql_error());
 		
-		$encounterSource = array();
-		
-		while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-			$encounterSource = array_merge($encounterSource, array($line[0] => $line[1]));
-		}
-		
-		// return the array containing the values for encounter types
-		return $encounterSource;
+		return $result;
 	}
 	
 }

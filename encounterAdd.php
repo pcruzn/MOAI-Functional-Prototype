@@ -18,30 +18,20 @@ include ("models/scrapingService.php");
 
 <?php
 
-echo $_GET['action'];
-
-
 if ($_GET['action'] == 1) {
 	
-	// CAUTION: for now, has scraper is always 0!
-	if (EncounterService::storeEncounter($_POST['slctSource'], $_POST['txtDescription'], $_POST['txtDate'], $_POST['slctHour'], $_POST['slctDuration'], $_POST['slctLocalization'], $_POST['slctMicrolocalization'], $_POST['slctEncounterType']) == 1) {
-		
-		
+// CAUTION: for now, has scraper is always 0!
+if (EncounterService::storeEncounter($_POST['slctSource'], $_POST['txtDescription'], $_POST['txtDate'], $_POST['slctHour'], $_POST['slctDuration'], $_POST['slctLocalization'], $_POST['slctMicrolocalization'], $_POST['slctEncounterType']) == 1) {
+
+	if ($_POST['boxDelete'] == 1) {
+		EncounterService::deleteTemporaryEncounterById($_GET['sourceId']);	
 	}
+
+	echo "<meta http-equiv='refresh' content='0;url=temporaryEncounters.php'>";		
 		
 }
-
-
-foreach (ScrapingService::getSourcesAndId() as $arrayKey => $arrayValue) {
-				$optionId[] = $arrayKey;
-				$optionValue[] = $arrayValue;
-			}
-	
-			$optionIndex = 0;			
-			while (!is_null($optionId[$optionIndex])) {
-				echo "$optionId[$optionIndex] $optionValue[$optionIndex] <br>";
-				$optionIndex++;
-			}
+		
+}
 
 ?>
 
@@ -69,19 +59,13 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
             <label for="slctSource"></label>
             <select name="slctSource" id="slctSource">
             <?php 
-			
-	    	foreach (ScrapingService::getSourcesAndId() as $arrayKey => $arrayValue) {
-				$optionId[] = $arrayKey;
-				$optionValue[] = $arrayValue;
+
+			$result = ScrapingService::getSourcesAndId();
+			while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+				echo "<option value='$line[0]'>$line[1]</option>";					
 			}
-	
-			$optionIndex = 0;			
-			while (!is_null($optionId[$optionIndex])) {
-				echo "<option value='$optionId[$optionIndex]'>$optionValue[$optionIndex]</option>";
-				$optionIndex++;
-			}
-			
-			?> 
+		
+			?>  
             </select></td>
           </tr>
           <tr>
@@ -113,10 +97,11 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
             <select name="slctDuration" id="slctDuration">
             <?php 
 
-			foreach (EncounterService::getEncounterDurationAndId() as $arrayKey => $arrayValue) {
-				echo "<option value='$arrayKey'>$arrayValue</option>";
+			$result = EncounterService::getEncounterDurationAndId();
+			while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+				echo "<option value='$line[0]'>$line[1]</option>";					
 			}
-		
+
 			?>            
             </select></td>
           </tr>
@@ -126,9 +111,10 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
             <select name="slctLocalization" id="slctLocalization">
             <?php 
 
-			foreach (EncounterService::getEncounterLocalizationAndId() as $arrayKey => $arrayValue) {
-				echo "<option value='$arrayKey'>$arrayValue</option>";
-			}
+			$result = EncounterService::getEncounterLocalizationAndId();
+			while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+				echo "<option value='$line[0]'>$line[1]</option>";					
+			}			
 		
 			?>
             </select></td>
@@ -139,9 +125,10 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
             <select name="slctMicrolocalization" id="slctMicrolocalization">
             <?php 
 
-			foreach (EncounterService::getEncounterMicroLocalizationAndId() as $arrayKey => $arrayValue) {
-				echo "<option value='$arrayKey'>$arrayValue</option>";
-			}
+			$result = EncounterService::getEncounterMicroLocalizationAndId();
+			while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+				echo "<option value='$line[0]'>$line[1]</option>";					
+			}	
 		
 			?>
             </select></td>
@@ -151,9 +138,10 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
             <td align="center"><select name="slctEncounterType" id="slctEncounterType">
             <?php 
 
-			foreach (EncounterService::getEncounterTypesAndId() as $arrayKey => $arrayValue) {
-				echo "<option value='$arrayKey'>$arrayValue</option>";
-			}
+			$result = EncounterService::getEncounterTypesAndId();
+			while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+				echo "<option value='$line[0]'>$line[1]</option>";					
+			}	
 		
 			?>
             

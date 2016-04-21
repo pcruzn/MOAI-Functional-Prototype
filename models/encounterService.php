@@ -51,14 +51,7 @@ class EncounterService {
 		$result	 = 	mysql_query($encounterTypes) 
 					or die('Consulta fallida: ' . mysql_error());
 		
-		$encounterTypes = array();
-		
-		while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-			$encounterTypes = array_merge($encounterTypes, array($line[0] => $line[1]));
-		}
-		
-		// return the array containing the values for encounter types
-		return $encounterTypes;
+		return $result;
 	}
 	
 	
@@ -135,14 +128,7 @@ class EncounterService {
 		$result	 = 	mysql_query($encounterLocalization) 
 					or die('Consulta fallida: ' . mysql_error());
 		
-		$encounterLocalization = array();
-		
-		while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-			$encounterLocalization = array_merge($encounterLocalization, array($line[0] => $line[1]));
-		}
-		
-		// return the array containing the values for encounter types
-		return $encounterLocalization;
+		return $result;
 	}
 	
 	
@@ -177,14 +163,7 @@ class EncounterService {
 		$result	 = 	mysql_query($encounterMicroLocalization) 
 					or die('Consulta fallida: ' . mysql_error());
 		
-		$encounterMicroLocalization = array();
-		
-		while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-			$encounterMicroLocalization = array_merge($encounterMicroLocalization, array($line[0] => $line[1]));
-		}
-		
-		// return the array containing the values for encounter types
-		return $encounterMicroLocalization;
+		return $result;
 	}
 	
 
@@ -220,14 +199,7 @@ class EncounterService {
 		$result	 = 	mysql_query($encounterDuration) 
 					or die('Consulta fallida: ' . mysql_error());
 		
-		$encounterDuration = array();
-		
-		while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-			$encounterDuration = array_merge($encounterDuration, array($line[0] => $line[1]));
-		}
-		
-		// return the array containing the values for encounter types
-		return $encounterDuration;
+		return $result;
 	}
 	
 	public static function getEncounterHourAndId() {
@@ -289,6 +261,18 @@ class EncounterService {
 		// query to delete all temporary encounters
 		$temporaryEncounters = 
 		"DELETE FROM encuentro_temporal";
+		
+		$result	 = 	mysql_query($temporaryEncounters) 
+					or die('Consulta fallida: ' . mysql_error());
+		
+		// return mysql result descriptor
+		return $result;
+	}
+	
+	public static function deleteTemporaryEncounterById($id) {
+		// query to delete all temporary encounters
+		$temporaryEncounters = 
+		"DELETE FROM encuentro_temporal WHERE id = $id";
 		
 		$result	 = 	mysql_query($temporaryEncounters) 
 					or die('Consulta fallida: ' . mysql_error());
