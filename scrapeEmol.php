@@ -56,7 +56,7 @@ class ScrapingRPCClient {
 };
 
 $scraping_rpc = new ScrapingRPCClient();
-$response = $scraping_rpc->call("Emol");
+$response = $scraping_rpc->call("Emol&Emol");
 
 if ($response == 2) { 
 	echo "<p>Un error ha ocurrido. Contacte al administrador.</p>";

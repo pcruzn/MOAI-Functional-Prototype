@@ -15,7 +15,19 @@ class ScrapingService {
 		
 	}
 	
+	public static function getSourcesAndURLs() {
+		$scrapingSources = 
+		"SELECT source_url, source_name
+		FROM scraping_source";
+		
+		$result	 = 	mysql_query($scrapingSources) 
+					or die('Consulta fallida: ' . mysql_error());
+		
+		return $result;
+	}
 	
+	
+	// this should not be here!
 	public static function getSourcesAndId() {
 		$encounterSource = 
 		"SELECT id, fuente
