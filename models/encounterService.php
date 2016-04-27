@@ -264,7 +264,7 @@ class EncounterService {
 		$temporaryEligibleEncounters = 
 		"SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente
 		FROM encuentro_temporal 
-		WHERE status = 1 
+		WHERE status = 3 
 		ORDER BY fuente ASC";
 		
 		$result	 = 	mysql_query($temporaryEligibleEncounters) 
