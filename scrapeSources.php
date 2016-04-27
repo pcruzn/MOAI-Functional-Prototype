@@ -11,6 +11,7 @@
 <p>Seleccione una fuente:
 <p><a href="scrapeElMostrador.php">El Mostrador</a>
 <p><a href="scrapeEmol.php">Emol</a>
+<p><a href="scrapeGeneric.php">Scrapeo de fuentes del catálogo</a>
 <footer>
   <p align="right"><a href="moai.php">Volver al inicio</a> <a href="index.php">Salir</a></p>
 </footer>

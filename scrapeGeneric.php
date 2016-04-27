@@ -1,10 +1,25 @@
 <?php
+include ("moai_db_connection.php");
+include ("models/scrapingService.php");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="flat-ui.css" />
+<title></title>
+</head>
+
+<body>
+<h3>Trabajando...</h3>
+
+<?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class FibonacciRpcClient {
+class ScrapingRPCClient {
     private $connection;
     private $channel;
     private $callback_queue;
@@ -36,7 +51,7 @@ class FibonacciRpcClient {
             array('correlation_id' => $this->corr_id,
                   'reply_to' => $this->callback_queue)
             );
-        $this->channel->basic_publish($msg, '', 'rpc_queue');
+        $this->channel->basic_publish($msg, '', 'rpc_scraping_queue');
         while(!$this->response) {
             $this->channel->wait();
         }
@@ -44,9 +59,25 @@ class FibonacciRpcClient {
     }
 };
 
-$fibonacci_rpc = new FibonacciRpcClient();
-$response = $fibonacci_rpc->call(30);
-echo " [.] Got ", $response, "\n";
+$scraping_rpc = new ScrapingRPCClient();
+
+// several calls to scrape generic sites
+$result = ScrapingService::getSourcesAndURLs();
+while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+	$response = $scraping_rpc->call("$line[0]&$line[1]");
+}
+	
+
+
+if ($response == 2) { 
+	echo "<p>Un error ha ocurrido. Contacte al administrador.</p>";
+	echo "<meta http-equiv='refresh' content='5;url=scrapeSources.php'>";	
+} else {
+	echo "<meta http-equiv='refresh' content='3;url=scrapingResults.php?source=Emol'>";
+}
+
 
 ?>
 
+</body>
+</html>
