@@ -38,7 +38,7 @@ echo "\t\t
 ";
 
 echo "\t</tr>\n";
-$result = EncounterService::getAllTemporaryEncounters();
+$result = EncounterService::getAllEligibleTemporaryEncounters();
 
 while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
 	echo "\t<tr>\n";
