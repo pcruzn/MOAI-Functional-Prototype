@@ -233,7 +233,7 @@ class EncounterService {
 	public static function getAllTemporaryEncounters() {
 		// query to select all encounter types
 		$temporaryEncounters = 
-		"SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente
+		"SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente, url
 		FROM encuentro_temporal 
 		ORDER BY fuente ASC";
 		
