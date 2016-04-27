@@ -257,6 +257,20 @@ class EncounterService {
 		// return mysql result descriptor
 		return $result;
 	}
+
+	public static function getAllAvailableTemporaryEncounters() {
+		// query to select all encounter types
+		$temporaryEncounters =
+			"SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente, url
+		FROM encuentro_temporal WHERE status = 1
+		ORDER BY fuente ASC";
+
+		$result	 = 	mysql_query($temporaryEncounters)
+		or die('Consulta fallida: ' . mysql_error());
+
+		// return mysql result descriptor
+		return $result;
+	}
 	
 	// returns a descriptor containing 'metadata' for temporary encounters
 	// and with status = 1 (i.e., eligible)
