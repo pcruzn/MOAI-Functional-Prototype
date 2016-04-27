@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myAppName">
+<head>
+    <title>Hello World, AngularJS - ViralPatel.net</title>
+    <script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ContactController">
+    Email:<input type="text" ng-model="newcontact"/>
+    <button ng-click="add()">Add</button>
+    <h2>Contacts</h2>
+
+    <ul>
+        <li ng-repeat="contact in contacts"> {{ contact }} </li>
+    </ul>
+
+</div>
+<script type="text/javascript">
+    angular.module('myAppName', [])
+            .controller('ContactController', function($scope) {
+        $scope.contacts = ["hi@email.com", "hello@email.com"];
+
+        $scope.add = function() {
+            $scope.contacts.push($scope.newcontact);
+            $scope.newcontact = "";
+        }
+    });
+</script>
+</body>
+</html>
