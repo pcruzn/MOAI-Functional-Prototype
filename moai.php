@@ -14,6 +14,7 @@
 <p><a href="searchByKeyword.php">Búsqueda por palabra clave y filtrado</a></p>
 <p>Funcionalidad 'Scraping':</p>
 <p><a href="scrapeSources.php">Iniciar Scraping</a></p>
+<p><a href="selectEncounter.php">Selección de encuentros temporales</a></p>
 <p><a href="temporaryEncounters.php">Revisar encuentros temporales</a></p>
 <p><a href="scrapingSourceAdd.php">Agregar Fuente</a></p>
 <p>Reportes gráficos:</p>
