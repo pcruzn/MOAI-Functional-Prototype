@@ -40,6 +40,25 @@ class ScrapingService {
 		return $result;
 	}
 	
+	// receives a list of ids; then set all ids in encuentro_temporal with status = 2
+	// status = 1 (visible)
+	// status = 2 (invisible, marked as not eligible)
+	public static function setScrapedDataAsNotEligible($scrapedIDsArray) {
+		
+		foreach($scrapedIDsArray as $tempId) {
+			$updateSQLStatement =
+			"UPDATE encuentro_temporal 
+			SET status = 2 
+			WHERE id = $tempId";
+			
+			mysql_query($updateSQLStatement)
+			or die('Consulta fallida: ' . mysql_error());
+		}
+		
+		unset($scrapedIDsArray);
+		
+	}
+	
 }
 
 ?>
