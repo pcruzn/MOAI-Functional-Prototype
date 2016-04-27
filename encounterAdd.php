@@ -13,21 +13,27 @@ include ("models/scrapingService.php");
 
 
 <body>
-<h3>Ingreso de Encuentro</h3>
+<h3>Modelado de Encuentro</h3>
 <p>Usted está pronto a registrar un encuentro temporalmente almacenado (i.e., proveniente de algún proceso de 'web-scraping' anterior) a la base de datos. </p>
 
 <?php
 
 if ($_GET['action'] == 1) {
 	
+// this MUST BE changed!
+$_POST['slctSource'] = 7;
+	
 // CAUTION: for now, has scraper is always 0!
-if (EncounterService::storeEncounter($_POST['slctSource'], $_POST['txtDescription'], $_POST['txtDate'], $_POST['slctHour'], $_POST['slctDuration'], $_POST['slctLocalization'], $_POST['slctMicrolocalization'], $_POST['slctEncounterType']) == 1) {
+	if (EncounterService::storeEncounter($_POST['slctSource'], $_POST['txtDescription'], $_POST['txtDate'], $_POST['slctHour'], $_POST['slctDuration'], $_POST['slctLocalization'], $_POST['slctMicrolocalization'], $_POST['slctEncounterType']) == 1) {
 
-	if ($_POST['boxDelete'] == 1) {
-		EncounterService::deleteTemporaryEncounterById($_GET['sourceId']);	
-	}
+		if ($_POST['boxDelete'] == 1) {
+			// for now, we haven't decided what to do with eligible encounters
+			// will they be hidden? deleted?
+			// EncounterService::deleteTemporaryEncounterById($_GET['sourceId']);
+			ScrapingService::setScrapedDataAsNotEligible(array($_GET['sourceId']));
+		}
 
-	echo "<meta http-equiv='refresh' content='0;url=temporaryEncounters.php'>";		
+		echo "<meta http-equiv='refresh' content='0;url=temporaryEncounters.php'>";		
 		
 }
 		
@@ -53,21 +59,7 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
             <td width="327" align="center"><label for="txtDescription"></label>
             <input name="txtDescription" type="text" id="txtSourceName" value="<?php echo $temporaryEncounterData[0]; ?>" size="50" maxlength="300" /></td>
           </tr>
-          <tr>
-            <td>Fuente:</td>
-            <td align="center"><label for="textfield3"></label>
-            <label for="slctSource"></label>
-            <select name="slctSource" id="slctSource">
-            <?php 
 
-			$result = ScrapingService::getSourcesAndId();
-			while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-				echo "<option value='$line[0]'>$line[1]</option>";					
-			}
-		
-			?>  
-            </select></td>
-          </tr>
           <tr>
             <td>Fecha:</td>
             <td align="center"><label for="radioHasScraper"></label>

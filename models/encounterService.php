@@ -20,6 +20,20 @@ class EncounterService {
 		
 		return $encounterTypes;
 	}
+	
+	// this returns a mysql descriptor with all encounter sources from table 'fuente' and associated ids
+	public static function getEncounterSourcesAndId() {
+		$encounterSources = 
+		"SELECT id, fuente
+		FROM fuente 
+		ORDER BY fuente";
+		
+		$result	 = 	mysql_query($encounterSources) 
+					or die('Consulta fallida: ' . mysql_error());
+		
+		return $result;
+	}
+	
 
 	// returns all encounter types
 	public static function getEncounterTypes() {
@@ -243,6 +257,39 @@ class EncounterService {
 		// return mysql result descriptor
 		return $result;
 	}
+	
+	// returns a descriptor containing 'metadata' for temporary encounters
+	// and with status = 1 (i.e., eligible)
+	public static function getAllEligibleTemporaryEncounters() {
+		$temporaryEligibleEncounters = 
+		"SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente
+		FROM encuentro_temporal 
+		WHERE status = 1 
+		ORDER BY fuente ASC";
+		
+		$result	 = 	mysql_query($temporaryEligibleEncounters) 
+					or die('Consulta fallida: ' . mysql_error());
+		
+		// return mysql result descriptor
+		return $result;
+	}
+	
+	// returns a descriptor containing 'metadata' for temporary encounters
+	// and with status = 2 (i.e., NOT eligible)
+	public static function getAllNOTEligibleTemporaryEncounters() {
+		$temporaryNOTEligibleEncounters = 
+		"SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente
+		FROM encuentro_temporal 
+		WHERE status = 2 
+		ORDER BY fuente ASC";
+		
+		$result	 = 	mysql_query($temporaryNOTEligibleEncounters) 
+					or die('Consulta fallida: ' . mysql_error());
+		
+		// return mysql result descriptor
+		return $result;
+	}
+	
 	
 	public static function getTemporaryEncounterById($id) {
 		$temporaryEncounter = 
