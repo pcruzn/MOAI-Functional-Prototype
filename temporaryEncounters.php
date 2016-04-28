@@ -1,6 +1,7 @@
 <?php
 include ("moai_db_connection.php");
 include ("models/encounterService.php");
+include ("header.php");
 
 if ($_GET['action'] == "45261728") {
 	
@@ -11,24 +12,16 @@ if ($_GET['action'] == "45261728") {
 }
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="flat-ui.css" />
-<title>B&uacute;squeda por palabra clave</title>
-</head>
 
-<body>
 <h3>Encuentros temporales</h3>
 <p>Este listado corresponde al total de encuentros temporalmente almacenados que provienen de sucesivas ejecuciones de los algoritmos de scraping.</p>
 <p>
 <?php
 
 // Imprimir los resultados en HTML
-echo "<table border='1' align='center'>\n";
+echo "<table border='1' align='center' class='table table-bordered'>\n";
 
-echo "\t<tr>\n";
+echo "\t<thead><tr>\n";
 
 echo "\t\t
 <td><p align='center'>Descripción del encuentro</p></td>
@@ -37,7 +30,7 @@ echo "\t\t
 <td><p align='center'>Fuente</p></td>
 ";
 
-echo "\t</tr>\n";
+echo "\t</tr></thead><tbody>\n";
 $result = EncounterService::getAllEligibleTemporaryEncounters();
 
 while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
@@ -48,14 +41,10 @@ while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
 	echo "\t\t<td>$line[4]</td>\n";
 	echo "\t</tr>\n";
 }
-echo "</table>\n";
+echo "</tbody></table>\n";
 
 ?>
 </p>
 <span class="WarningElement"><strong class="WarningElement"><a href="temporaryEncounters.php?action=45261728" class="WarningElement">¿Borrar todo?</a></strong></span>
-<footer>
-  <p align="right"><a href="moai.php">Volver al inicio</a> <a href="index.php">Salir</a></p>
-</footer>
-
-</body>
-</html>
+<?php
+include ("footer.html");
