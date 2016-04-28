@@ -97,7 +97,7 @@ include("models/encounterService.php");
             <tr>
                 <th><label class="checkbox no-label toggle-all" for="checkbox-table-1"><input type="checkbox" value="" id="checkbox-table-1" data-toggle="checkbox"></label></th>
                 <th>Descripción</th>
-                <th>Fecha Obtención</th>
+                <th style="white-space: nowrap;overflow: hidden;">Fecha Obtención</th>
                 <th>Fuente</th>
             </tr>
             </thead>
