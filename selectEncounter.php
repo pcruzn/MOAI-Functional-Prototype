@@ -6,77 +6,81 @@ include("models/scrapingService.php");
 include("models/encounterService.php");
 ?>
 
-<script src="bower_components/angular/angular.js"></script>
-<script type="application/javascript">
-    angular.module('moaiApp', [])
-        .controller('EncounterControllerAjax', function($http) {
-            var encounter = this;
-
-            $http({method: 'GET', url: 'http://localhost:63342/MOAI-Functional/encounter_api.php?action=get_temporal_encounter_list'}).success(function(data)
-            {
-                encounter.encounterList = data; // response data
-            });
-
-            encounter.check = function() {
-                for(i = 0; i < encounter.encounterList.length; i++) {
-                    var e = encounter.encounterList[i];
-                    console.log(e.id+"check:"+e.checked);
-                }
-            }
-        });
-</script>
 <h4>Selección de Encuentros</h4>
-<form action="selectEncounter.php" class="form-inline" method="post">
-    <input type="text" class="span2 search-query search-query-rounded" placeholder="Palabra clave" <?php
-    // if a search was made, remember the keyword in the text field
-    if ($_POST['txtSearchKeyword'] != '') {
-        $keywordFromForm = $_POST['txtSearchKeyword'];
-        echo "value=$keywordFromForm";
-    }
-    ?> id="search-query-7" name="txtSearchKeyword">
-    <label for="from">Desde:</label>
-    <div class="input-prepend input-datepicker">
-        <button type="button" class="btn"><span class="fui-calendar"></span></button>
-        <input type="text" name="from" class="span2" id="datepicker-01" <?php
-        // if a search was made, remember the keyword in the text field
-        if ($_POST['from'] != '') {
-            $keywordFromForm = $_POST['from'];
-            echo "value=$keywordFromForm";
-        }
-        ?>>
+<form action="selectEncounter.php" class="form" method="post">
+    <div class="row">
+        <div class="offset1 span4">
+            <div class="control-group">
+                <input type="text" class="span1 search-query search-query-rounded" placeholder="Palabra clave" <?php
+                // if a search was made, remember the keyword in the text field
+                if ($_POST['txtSearchKeyword'] != '') {
+                    $keywordFromForm = $_POST['txtSearchKeyword'];
+                    echo "value=$keywordFromForm";
+                }
+                ?> id="search-query-7" name="txtSearchKeyword">
+            </div>
+        </div>
     </div>
-    <label for="to">Hasta:</label>
-    <div class="input-prepend input-datepicker">
-        <button type="button" class="btn"><span class="fui-calendar"></span></button>
-        <input type="text" name="to" class="span2" id="datepicker-02"<?php
-        // if a search was made, remember the keyword in the text field
-        if ($_POST['to'] != '') {
-            $keywordFromForm = $_POST['to'];
-            echo "value=$keywordFromForm";
-        }
-        ?>>>
-    </div>
-    <div class=control-group>
-        <label for="selectEncounterSourceFilter">Fuente:</label>
-        <select name="selectEncounterSourceFilter">
-            <option value="NoSourceFilter" selected="selected">Sin filtrado</option>
-            <?php
-            $querySources = "SELECT id, fuente FROM fuente";
-            $result = mysql_query($querySources) or die('Consulta fallida: ' . mysql_error());
+    <div class="row">
+        <div class="offset1 span4">
+            <div class="control-group">
+                <div class="input-prepend input-datepicker">
+                    <button type="button" class="btn"><span class="fui-calendar"></span></button>
+                    <input type="text" name="from" class="span2" id="datepicker-1" placeholder="Desde" <?php
+                    // if a search was made, remember the keyword in the text field
+                    if ($_POST['from'] != '') {
+                        $from = $_POST['from'];
+                        echo "value=$from";
+                    }
+                    ?>>
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="control-group">
+                <select name="selectEncounterSourceFilter" class="select-block" data-toggle="tooltip" title="Fuente">
+                    <option value="NoSourceFilter" selected="selected">Sin filtrado</option>
+                    <?php
+                    $querySources = "SELECT DISTINCT fuente FROM encuentro_temporal";
+                    $result = mysql_query($querySources) or die('Consulta fallida: ' . mysql_error());
 
-            // in case a search was made and a filter was selected, remember the filter criteria
-            while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-                if ($line[0] == $_POST['selectEncounterSourceFilter'])
-                    echo "<option value='$line[0]' selected='selected'>$line[1]</option>";
-                else
-                    echo "<option value='$line[0]'>$line[1]</option>";
-            }
+                    // in case a search was made and a filter was selected, remember the filter criteria
+                    while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+                        if ($line[0] == $_POST['selectEncounterSourceFilter']) {
+                            $source = $line[0];
+                            echo "<option value='$line[0]' selected='selected'>$line[0]</option>";
+                        }else
+                            echo "<option value='$line[0]'>$line[0]</option>";
+                    }
 
-            ?>
-        </select>
+                    ?>
+                </select>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Buscar</button>
+    <div class="row">
+        <div class="offset1 span3">
+            <div class="control-group">
+                <div class="input-prepend input-datepicker">
+                    <button type="button" class="btn"><span class="fui-calendar"></span></button>
+                    <input type="text" name="to" class="span2" id="datepicker-2" placeholder="Hasta" <?php
+                    // if a search was made, remember the keyword in the text field
+                    if ($_POST['to'] != '') {
+                        $to = $_POST['to'];
+                        echo "value=$to";
+                    }
+                    ?>>>
+                </div>
+            </div>
+
+        </div>
+        <div class="offset1 span4">
+            <button type="submit" class="btn btn-small btn-primary">Buscar</button>
+        </div>
+    </div>
+
 </form>
+<hr>
 <form id="encountersForm" action="encounter_api.php">
     <div ng-controller="EncounterControllerAjax as encounter">
         <input hidden id="action" name="action" value="select">
@@ -99,12 +103,7 @@ include("models/encounterService.php");
             </thead>
             <tbody>
             <?php
-            $rs = EncounterService::getAllAvailableTemporaryEncounters();
-//            while ($line = mysql_fetch_array($rs, MYSQL_NUM)) {
-//                echo "\t<tr>\n";
-//                echo "\t\t<td>$line[1] (ver detalles)</td>\n";
-//                echo "\t</tr>\n";
-//            }
+            $rs = EncounterService::filterTemporaryEncounters(1, $keywordFromForm, $source, $from, $to );
             $index = 1;
             while($r = mysql_fetch_array($rs, MYSQL_NUM)) {
                 echo "\t<tr>\n";
@@ -128,7 +127,7 @@ include("models/encounterService.php");
 <script type="application/javascript">
     $( document ).ready(function() {
         // jQuery UI Datepicker
-        $('#datepicker-01').datepicker({
+        $('#datepicker-1').datepicker({
             showOtherMonths: true,
             selectOtherMonths: true,
             dateFormat: "dd/mm/yy",
@@ -137,7 +136,7 @@ include("models/encounterService.php");
             e && e.preventDefault();
             $('#datepicker-01').focus();
         });
-        $('#datepicker-02').datepicker({
+        $('#datepicker-2').datepicker({
             showOtherMonths: true,
             selectOtherMonths: true,
             dateFormat: "dd/mm/yy",
@@ -170,6 +169,8 @@ include("models/encounterService.php");
             $('#action').val(value);
             $('#encountersForm').submit();
         })
+
+        $("select[name='selectEncounterSourceFilter']").selectpicker({style: 'btn-small btn-primary'});
     });
 </script>
 
