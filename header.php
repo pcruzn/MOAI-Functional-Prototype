@@ -77,8 +77,8 @@
         </div>
     </div> <!-- /navbar -->
 
-    <div class="row-fluid">
-        <div class="span1">
+    <div class="row">
+        <div class="span2">
             <div class="iconbar">
                 <ul>
                     <li><a href="facetedSearch.php" class="fui-search" data-toggle="tooltip" data-placement="right"  title="Busqueda faceteada"></a></li>
