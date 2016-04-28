@@ -1,8 +1,12 @@
-<form ng-submit="search(query, rows)">
-  <input ng-model="query"/>
-  <select name="info" class="select-block"
-    ng-model="rows"
-    ng-options="r for r in roptions">
-  </select>
-  <button type="submit">Buscar</button>
+<form ng-submit="search(query, rows)" class="form-horizontal">
+  <div class="control-group small">
+    <input ng-model="query" type="text" class="span2" placeholder="Palabra clave"/>
+  </div>
+  <div class="control-group small">
+    <select name="info" class="select-block span2"
+            ng-model="rows"
+            ng-options="r for r in roptions">
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary btn-small">Buscar</button>
 </form>

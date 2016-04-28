@@ -18,7 +18,7 @@ include('header.php');
                 </solr-facet-group>
             </div>
 
-            <div class="span8">
+            <div class="span7">
                 <h4>Resultados ({{numFound}})</h4>
                 <ul class="list-unstyled">
                     <li ng-repeat="doc in docs">
