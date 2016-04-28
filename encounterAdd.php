@@ -54,7 +54,7 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
         <div class="control-group small">
             <label class="control-label" for="txtDate">Fecha</label>
             <div class="controls small disabled">
-                <input name="txtDate" id="inputPassword" type="text" id="txtDate" placeholder="Fecha" class="span2" disabled="disabled" id="txtDate" value="<?php echo $temporaryEncounterData[1]; ?>">
+                <input name="txtDate" id="inputPassword" type="text" id="txtDate" placeholder="Fecha" class="span2" readonly id="txtDate" value="<?php echo $temporaryEncounterData[1]; ?>">
                 <i class="input-icon fui-lock"></i>
             </div>
         </div>
@@ -139,7 +139,7 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
         <div class="control-group small">
             <div class="controls">
                 <label class="checkbox primary asdasd" for="boxDelete">
-                    <input type="checkbox" checked="checked" value="" name="boxDelete" id="boxDelete" value="1" data-toggle="checkbox" checked=""/>
+                    <input type="checkbox" checked="checked" name="boxDelete" id="boxDelete" value="1" data-toggle="checkbox" checked=""/>
                     Eliminar encuentro temporal (web-scraping)
                 </label>
                 <button type="submit" name="btnSubmit" id="btnSubmit"class="btn btn-inverse">Guardar Encuentro</button>
