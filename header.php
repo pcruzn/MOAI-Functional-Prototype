@@ -19,6 +19,15 @@
     <script src="Flat-UI/js/html5shiv.js"></script>
     <![endif]-->
     <script src="Flat-UI/js/jquery-1.8.3.min.js"></script>
+    <style type="text/css">
+        .iconbar .divider {
+            background-color: #34495E;
+            border-bottom: none;
+            margin: 2px 0 5px;
+            padding: 0;
+            height: 2px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -73,12 +82,11 @@
             <div class="iconbar">
                 <ul>
                     <li><a href="facetedSearch.php" class="fui-search" data-toggle="tooltip" data-placement="right"  title="Busqueda faceteada"></a></li>
-                    <li><a href="encounterHourHistogramChart.php" class="fui-list" data-placement="right" title="Histograma - Hora de Encuentros" data-toggle="tooltip"></a></li>
-                    <li><a href="encounterDateTimeSeriesChart.php" class="fui-calendar" data-placement="right" title="Serie de Tiempo -  Encuentros por Fecha" data-toggle="tooltip"></a></li>
-                    <li><a href="encounterTypeRadarChart.php" class="fui-list-bulleted" data-placement="right" title="Radar - Tipo de Encuentros" data-toggle="tooltip"></a></li>
-                    <li><a href="encounterHourRadarChart.php" class="fui-time" title="Radar - Hora de Encuentros" data-placement="right"  data-toggle="tooltip"></a></li>
-                    <li><a href="encounterLocalizationRadarChart.php" class="fui-location" title="Radar - Localización de Encuentros" data-placement="right"  data-toggle="tooltip"></a></li>
-                    <li><a href="encounterMicrolocalizationHistogramChart.php" class="fui-location" title="Histograma - Microlocalización de encuentros" data-toggle="tooltip" data-placement="right" ></a></li>
+                    <li class="divider"></li>
+                    <li><a href="scrapeSources.php" class="fui-gear" data-placement="right" title="Configurar Scraper" data-toggle="tooltip"></a></li>
+                    <li><a href="selectEncounter.php" class="fui-list-bulleted" data-placement="right" title="Selección" data-toggle="tooltip"></a></li>
+                    <li><a href="temporaryEncounters.php" class="fui-link" data-placement="right" title="Modelado" data-toggle="tooltip"></a></li>
+                    <li><a href="#" class="fui-eye" data-placement="right" title="Análisis" data-toggle="tooltip"></a></li>
                 </ul>
             </div>
         </div>
