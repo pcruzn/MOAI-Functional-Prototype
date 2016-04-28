@@ -258,7 +258,7 @@ class EncounterService {
 		return $result;
 	}
 
-	public static function getAllAvailableTemporaryEncounters() {
+	public function getAllAvailableTemporaryEncounters() {
 		// query to select all encounter types
 		$temporaryEncounters =
 			"SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente, url
@@ -266,6 +266,30 @@ class EncounterService {
 		ORDER BY fuente ASC";
 
 		$result	 = 	mysql_query($temporaryEncounters)
+		or die('Consulta fallida: ' . mysql_error());
+
+		// return mysql result descriptor
+		return $result;
+	}
+
+	public static function filterTemporaryEncounters($status=NULL, $keyword=NULL, $fuente=NULL, $from=NULL, $to=NULL) {
+		$sql = "SELECT id, descripcion, fecha_obtencion, hora_obtencion, fuente, url FROM encuentro_temporal WHERE 1 = 1";
+		if ($fuente) {
+			$sql .= " AND fuente = '$fuente'";
+		}
+		if ($from) {
+			$sql .= " AND fecha_obtencion >= STR_TO_DATE('$from','%d/%m/%Y')";
+		}
+		if ($to) {
+			$sql .= " AND fecha_obtencion <= STR_TO_DATE('$to','%d/%m/%Y')";
+		}
+		if($keyword){
+			$sql .= " AND descripcion LIKE '%$keyword%'";
+		}
+		if($status)
+			$sql .= " AND status = $status";
+
+		$result	 = 	mysql_query($sql)
 		or die('Consulta fallida: ' . mysql_error());
 
 		// return mysql result descriptor
