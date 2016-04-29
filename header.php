@@ -66,11 +66,6 @@
                                 <span class="fui-power"></span><span class="hidden-desktop">Salir</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#fakelink">
-                                <span class="fui-gear"></span><span class="hidden-desktop">Settings</span>
-                            </a>
-                        </li>
                     </ul> <!-- /nav -->
                 </div><!--/.nav-collapse -->
             </div>
