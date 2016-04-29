@@ -28,7 +28,7 @@
 <body>
 
 <div class="container">
-    <div class="row-fluid">
+    <div class="row">
         <div class="span6 offset3">
             <h4 class="text-center">Bienvenido a MOAI</h4>
             <form action="index.php?login=1" method="post" class="form-horizontal">
