@@ -12,6 +12,9 @@
     <!-- Loading Flat UI -->
     <link href="Flat-UI/css/flat-ui.css" rel="stylesheet">
 
+    <!-- MOAI custom css-->
+    <link rel="stylesheet" type="text/css" href="moai.css"/>
+
     <link rel="shortcut icon" href="moai_icon.ico">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->

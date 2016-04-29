@@ -6,6 +6,9 @@
     <link href="Flat-UI/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="Flat-UI/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
+    <!-- MOAI custom css-->
+    <link rel="stylesheet" type="text/css" href="moai.css"/>
+
     <!-- Loading Flat UI -->
     <link href="Flat-UI/css/flat-ui.css" rel="stylesheet">
 
@@ -17,12 +20,6 @@
     <![endif]-->
     <script src="Flat-UI/js/jquery-1.8.3.min.js"></script>
     <title>MOAI</title>
-    <style type="text/css">
-        .moai-alert {
-            padding: 0px 45px 0px 30px;
-            font-size: small;
-        }
-    </style>
 </head>
 
 <body>
