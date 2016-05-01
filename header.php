@@ -84,7 +84,7 @@
                     <li><a href="scrapeSources.php" class="fui-gear" data-placement="right" title="Configurar Scraper" data-toggle="tooltip"></a></li>
                     <li><a href="selectEncounter.php" class="fui-list-bulleted" data-placement="right" title="Selección" data-toggle="tooltip"></a></li>
                     <li><a href="temporaryEncounters.php" class="fui-link" data-placement="right" title="Modelado" data-toggle="tooltip"></a></li>
-                    <li><a href="encounterTypeRadarChart.php" class="fui-eye" data-placement="right" title="Análisis" data-toggle="tooltip"></a></li>
+                    <li><a href="encounterAnalysis.php" class="fui-eye" data-placement="right" title="Análisis" data-toggle="tooltip"></a></li>
                 </ul>
             </div>
         </div>
