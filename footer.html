@@ -16,5 +16,10 @@
 <script src="Flat-UI/js/jquery.placeholder.js"></script>
 <script src="Flat-UI/js/jquery.stacktable.js"></script>
 <script src="Chart.js/Chart.js"></script>
+<script>
+    $(function() {
+        $('.iconbar a[href^="' + location.pathname.split("/")[2] + '"]').parent().addClass('active');
+    });
+</script>
 </body>
 </html>
