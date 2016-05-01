@@ -4,9 +4,15 @@
 include('header.php');
 ?>
 <h3>Scrapear fuentes</h3>
+<form action="scrapingSourceAdd.php" class="form-actions">
 <p>Seleccione una fuente:
 <p><a href="scrapeElMostrador.php">El Mostrador</a>
 <p><a href="scrapeEmol.php">Emol</a>
 <p><a href="scrapeGeneric.php">Scrapeo de fuentes del catálogo</a>
+
+
+    <button type="submit" href="scrapingSourceAdd.php" class="btn btn-inverse pull-right">Agregar nueva Fuente</button>
+</form>
+
 <?php
 include('footer.html');
