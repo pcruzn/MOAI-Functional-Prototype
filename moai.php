@@ -2,9 +2,7 @@
   include("header.php")
 ?>
 <h4>Bienvenido al software prototipo de MOAI</h4>
-<p>Seleccione un tipo de reporte:</p>
-
-<p><a href="searchByKeyword.php">Búsqueda por palabra clave y filtrado</a></p>
+t
 <p>Funcionalidad 'Scraping':</p>
 <p><a href="scrapeSources.php">Iniciar Scraping</a></p>
 <p><a href="selectEncounter.php">Selección de encuentros temporales</a></p>

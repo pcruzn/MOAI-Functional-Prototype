@@ -20,6 +20,7 @@ include ("header.php");
 			<h6 id="myModalLabel">Crear Agrupación</h6>
 		</div>
 		<div class="modal-body">
+			<div id="groupError"></div>
 			<form id="groupForm" class="form-horizontal">
 				<div class="control-group"></div>
 				<input id="groupName" type="text" placeholder="Nombre Agrupación" class="span3 small"/>
@@ -99,24 +100,31 @@ foreach (EncounterService::getEncounterTypesCount() as $arrayKey => $arrayValue)
 		}
 
 		function createGroup() {
-			encounterTypes = []
-			encounterTypesCount = []
+			var encounterTypes_ = []
+			var encounterTypesCount_ = []
 			var groupCount = 0;
 			$("#groupForm div.control-group input").each( function() {
 				if (!$(this).is(':checked')){
-					encounterTypes.push($(this).val());
-					encounterTypesCount.push($(this).attr("data-count"));
+					encounterTypes_.push($(this).val());
+					encounterTypesCount_.push($(this).attr("data-count"));
 				}else{
 					groupCount += parseInt($(this).attr("data-count"));
 				}
 			});
-			encounterTypes.push($("#groupName").val());
-			encounterTypesCount.push(groupCount);
-			$("#groupName").val("");
-			console.log(encounterTypes);
-			resetCanvas();
-			createChar();
-			$('#myModal').modal('toggle');
+			var groupName = $("#groupName").val();
+			if(groupCount>0 && groupName != ""){
+				encounterTypes_.push(groupName);
+				encounterTypesCount_.push(groupCount);
+				$("#groupName").val("");
+				encounterTypes = encounterTypes_;
+				encounterTypesCount = encounterTypesCount_;
+				resetCanvas();
+				createChar();
+				$('#myModal').modal('toggle');
+			}else{
+				$("#groupError").append('<div class="alert alert-error moai-alert"><button type="button" class="close" data-dismiss="alert">&times;</button> No ingresado nombre o selección. </div>');
+			}
+
 		}
 
 		$( document ).ready(function() {
@@ -127,16 +135,6 @@ foreach (EncounterService::getEncounterTypesCount() as $arrayKey => $arrayValue)
 		var resetCanvas = function () {
 			$('#canvas').remove(); // this is my <canvas> element
 			$('#idCanvas').append('<canvas id="canvas" height="250" width="400"><canvas>');
-//			canvas = document.querySelector('#canvas');
-//			ctx = canvas.getContext('2d');
-//			ctx.canvas.width = $('#graph').width(); // resize to parent width
-//			ctx.canvas.height = $('#graph').height(); // resize to parent height
-//
-//			var x = canvas.width/2;
-//			var y = canvas.height/2;
-//			ctx.font = '10pt Verdana';
-//			ctx.textAlign = 'center';
-//			ctx.fillText('This text is centered on the canvas', x, y);
 		};
 
 		function createChar() {
