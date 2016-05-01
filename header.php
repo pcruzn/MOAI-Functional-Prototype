@@ -79,7 +79,7 @@
         <div class="span2">
             <div class="iconbar">
                 <ul>
-                    <li><a href="facetedSearch.php" class="fui-search" data-toggle="tooltip" data-placement="right"  title="Busqueda faceteada"></a></li>
+                    <li><a href="facetedSearch.php" class="fui-search" data-toggle="tooltip" data-placement="right"  title="Búsqueda por facetas"></a></li>
                     <li class="divider"></li>
                     <li><a href="scrapeSources.php" class="fui-gear" data-placement="right" title="Configurar Scraper" data-toggle="tooltip"></a></li>
                     <li><a href="selectEncounter.php" class="fui-list-bulleted" data-placement="right" title="Selección" data-toggle="tooltip"></a></li>
