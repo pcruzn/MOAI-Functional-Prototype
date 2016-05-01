@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container">
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
             <div class="container">
