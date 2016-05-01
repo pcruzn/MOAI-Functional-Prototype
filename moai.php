@@ -28,6 +28,11 @@ include("header.php")
         </div>
     </div>
 
+    <br>
+    <br>
+    <br>
+    <div class="offset2 span3">Además de <a href="facetedSearch.php" > Búsqueda por facetas <span class="fui-search"/></a></div>
+
 
 
 
