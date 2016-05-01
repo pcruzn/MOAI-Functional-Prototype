@@ -1,20 +1,35 @@
 <?php
-  include("header.php")
+include("header.php")
 ?>
-<h4>Bienvenido al software prototipo de MOAI</h4>
-t
-<p>Funcionalidad 'Scraping':</p>
-<p><a href="scrapeSources.php">Iniciar Scraping</a></p>
-<p><a href="selectEncounter.php">Selección de encuentros temporales</a></p>
-<p><a href="temporaryEncounters.php">Revisar encuentros temporales</a></p>
-<p><a href="scrapingSourceAdd.php">Agregar Fuente</a></p>
-<p>Reportes gráficos:</p>
-<p><a href="encounterHourHistogramChart.php">Histograma - Hora de Encuentros</a></p>
-<p><a href="encounterDateTimeSeriesChart.php">Serie de Tiempo -  Encuentros por Fecha</a></p>
-<p><a href="encounterTypeRadarChart.php">Radar - Tipo de Encuentros</a></p>
-<p><a href="encounterHourRadarChart.php">Radar - Hora de Encuentros</a></p>
-<p><a href="encounterLocalizationRadarChart.php">Radar - Localización de Encuentros</a></p>
-<p><a href="encounterMicrolocalizationHistogramChart.php">Histograma - Microlocalización de encuentros</a></p>
+
+    <h5>Bienvenido al software prototipo de MOAI</h5>
+    <br>
+    <p>Podra ejecutar MOAI en los siguientes 4 pasos:</p>
+
+
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <a href="scrapeSources.php" type="button" class="fui-gear btn btn-primary btn-circle"></a>
+                <p>Scraping</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="selectEncounter.php" type="button" class="fui-list-bulleted btn btn-primary btn-circle"></a>
+                <p>Selección</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="temporaryEncounters.php" type="button" class="fui-link btn btn-primary btn-circle"></a>
+                <p>Modelamiento</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="encounterAnalysis.php" type="button" class="fui-eye btn btn-primary btn-circle"></a>
+                <p>Análisis</p>
+            </div>
+        </div>
+    </div>
+
+
+
 
 <?php
 include ("footer.html");
