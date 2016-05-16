@@ -6,7 +6,7 @@ include("models/scrapingService.php");
 include("models/encounterService.php");
 ?>
 
-<h4>Selección de Encuentros</h4>
+<h4>Selección de Item Scrapeados</h4>
 <form action="selectEncounter.php" class="form" method="post">
     <div class="row">
         <div class="offset1 span4">
