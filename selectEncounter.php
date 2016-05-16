@@ -7,78 +7,52 @@ include("models/encounterService.php");
 ?>
 
 <h4>Selección de Item Scrapeados</h4>
-<form action="selectEncounter.php" class="form" method="post">
-    <div class="row">
-        <div class="offset1 span4">
-            <div class="control-group">
-                <input type="text" class="span1 search-query search-query-rounded" placeholder="Palabra clave" <?php
-                // if a search was made, remember the keyword in the text field
-                if ($_POST['txtSearchKeyword'] != '') {
-                    $keywordFromForm = $_POST['txtSearchKeyword'];
-                    echo "value=$keywordFromForm";
-                }
-                ?> id="search-query-7" name="txtSearchKeyword">
-            </div>
-        </div>
+<form action="selectEncounter.php" class="form-inline" method="post">
+    <input type="text" class="span2 search-query search-query-rounded" placeholder="Palabra clave" <?php
+    // if a search was made, remember the keyword in the text field
+    if ($_POST['txtSearchKeyword'] != '') {
+        $keywordFromForm = $_POST['txtSearchKeyword'];
+        echo "value=$keywordFromForm";
+    }
+    ?> id="searchQuery" name="txtSearchKeyword">
+    <div class="input-prepend input-datepicker">
+        <button type="button" class="btn"><span class="fui-calendar"></span></button>
+        <input type="text" name="from" class="span2" id="datepicker-1" placeholder="Desde" <?php
+        // if a search was made, remember the keyword in the text field
+        if ($_POST['from'] != '') {
+            $from = $_POST['from'];
+            echo "value=$from";
+        }
+        ?>>
     </div>
-    <div class="row">
-        <div class="offset1 span4">
-            <div class="control-group">
-                <div class="input-prepend input-datepicker">
-                    <button type="button" class="btn"><span class="fui-calendar"></span></button>
-                    <input type="text" name="from" class="span2" id="datepicker-1" placeholder="Desde" <?php
-                    // if a search was made, remember the keyword in the text field
-                    if ($_POST['from'] != '') {
-                        $from = $_POST['from'];
-                        echo "value=$from";
-                    }
-                    ?>>
-                </div>
-            </div>
-        </div>
-        <div class="span4">
-            <div class="control-group">
-                <select name="selectEncounterSourceFilter" class="select-block" data-toggle="tooltip" title="Fuente">
-                    <option value="NoSourceFilter" selected="selected">Sin filtrado</option>
-                    <?php
-                    $querySources = "SELECT DISTINCT fuente FROM encuentro_temporal";
-                    $result = mysql_query($querySources) or die('Consulta fallida: ' . mysql_error());
-
-                    // in case a search was made and a filter was selected, remember the filter criteria
-                    while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-                        if ($line[0] == $_POST['selectEncounterSourceFilter']) {
-                            $source = $line[0];
-                            echo "<option value='$line[0]' selected='selected'>$line[0]</option>";
-                        }else
-                            echo "<option value='$line[0]'>$line[0]</option>";
-                    }
-
-                    ?>
-                </select>
-            </div>
-        </div>
+    <div class="input-prepend input-datepicker">
+        <button type="button" class="btn"><span class="fui-calendar"></span></button>
+        <input type="text" name="to" class="span2" id="datepicker-2" placeholder="Hasta" <?php
+        // if a search was made, remember the keyword in the text field
+        if ($_POST['to'] != '') {
+            $to = $_POST['to'];
+            echo "value=$to";
+        }
+        ?>>>
     </div>
-    <div class="row">
-        <div class="offset1 span3">
-            <div class="control-group">
-                <div class="input-prepend input-datepicker">
-                    <button type="button" class="btn"><span class="fui-calendar"></span></button>
-                    <input type="text" name="to" class="span2" id="datepicker-2" placeholder="Hasta" <?php
-                    // if a search was made, remember the keyword in the text field
-                    if ($_POST['to'] != '') {
-                        $to = $_POST['to'];
-                        echo "value=$to";
-                    }
-                    ?>>>
-                </div>
-            </div>
+    <select name="selectEncounterSourceFilter" class="select-inline" data-toggle="tooltip" title="Fuente">
+        <option value="NoSourceFilter" selected="selected">Sin filtrado</option>
+        <?php
+        $querySources = "SELECT DISTINCT fuente FROM encuentro_temporal";
+        $result = mysql_query($querySources) or die('Consulta fallida: ' . mysql_error());
 
-        </div>
-        <div class="offset1 span4">
-            <button type="submit" class="btn btn-small btn-primary">Buscar</button>
-        </div>
-    </div>
+        // in case a search was made and a filter was selected, remember the filter criteria
+        while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+            if ($line[0] == $_POST['selectEncounterSourceFilter']) {
+                $source = $line[0];
+                echo "<option value='$line[0]' selected='selected'>$line[0]</option>";
+            }else
+                echo "<option value='$line[0]'>$line[0]</option>";
+        }
 
+        ?>
+    </select>
+    <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
 <hr>
 <form id="encountersForm" action="encounter_api.php">
@@ -170,7 +144,7 @@ include("models/encounterService.php");
             $('#encountersForm').submit();
         })
 
-        $("select[name='selectEncounterSourceFilter']").selectpicker({style: 'btn-small btn-primary'});
+        $("select[name='selectEncounterSourceFilter']").selectpicker({style: 'btn-primary select-inline'});
     });
 </script>
 
