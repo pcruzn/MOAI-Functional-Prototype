@@ -23,7 +23,7 @@ include("header.php")
             </div>
             <div class="stepwizard-step">
                 <a href="encounterAnalysis.php" type="button" class="fui-eye btn btn-primary btn-circle"></a>
-                <p>Análisis</p>
+                <p>Reporte</p>
             </div>
         </div>
     </div>
