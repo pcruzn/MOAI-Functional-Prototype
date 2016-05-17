@@ -139,14 +139,53 @@ include("models/encounterService.php");
         });
 
         $('#actionBar a').on('click',function () {
-            value = $(this).attr('data-original-title');
-            $('#action').val(value);
-            $('#encountersForm').submit();
+            var value = $(this).attr('data-original-title');
+            if (value != 'Eliminar') {
+                if (validateCheckboxList()) {
+                    $('#action').val(value);
+                    $('#encountersForm').submit();
+                }
+            }
         })
 
+        validateCheckboxList = function () {
+            if ($(".checkbox input:checked").length > 0) {
+                return true;
+            }else{
+                $("#messages").append('<div class="alert moai-alert"><button type="button" class="close" data-dismiss="alert">&times;</button>No existen items seleccionados!</div>');
+                return false;
+            }
+        }
+
         $("select[name='selectEncounterSourceFilter']").selectpicker({style: 'btn-primary select-inline'});
+
+        $('.confirm-delete').on('click', function(e) {
+            e.preventDefault();
+            if (validateCheckboxList())
+                $('#myModal').modal('show');
+        });
+
+        $('#btnYes').click(function() {
+            $('#action').val('Eliminar');
+            $('#encountersForm').submit();
+        });
     });
 </script>
+
+<div id="myModal" class="modal hide">
+    <div class="modal-header">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+        <h3>Confirmar</h3>
+    </div>
+    <div class="modal-body">
+        <p>Va a eliminar los items seleccionados</p>
+        <p>¿Desea proceder a eliminarlos?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" id="btnYes" class="btn btn-danger">Proceder</a>
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Cancelar</a>
+    </div>
+</div>
 
 <?php
 include('footer.html');
