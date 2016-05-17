@@ -89,9 +89,9 @@ include("models/encounterService.php");
                     if (isset($_POST["selectedEncounters"])) {
                         $value = is_array($_POST["selectedEncounters"]);
                         $value = select_temporal_encounter($_POST["selectedEncounters"]);
-                        echo "<div class=\"alert-success moai-alert\">
+                        echo "<div class=\"alert-success alert\">
                                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-                                    Items se han sido seleccionados exitosamente
+                                    Los items se han sido seleccionados exitosamente
                                 </div>";
                     }
                     else
@@ -101,9 +101,9 @@ include("models/encounterService.php");
                     if (isset($_POST["selectedEncounters"])) {
                         $value = is_array($_POST["selectedEncounters"]);
                         $value = drop_temporal_encounter($_POST["selectedEncounters"]);
-                        echo "<div class=\"alert moai-alert\">
+                        echo "<div class=\"alert alert-error\">
                                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-                                    Items se han sido eliminado exitosamente
+                                    Los items se han sido eliminado exitosamente
                                 </div>";
                     }
                     else
