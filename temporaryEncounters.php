@@ -45,17 +45,17 @@ echo "\t</tr></thead><tbody>\n";
 $result = EncounterService::getAllEligibleTemporaryEncounters();
 
 while ($line = mysql_fetch_array($result, MYSQL_NUM)) {
-	echo "\t<tr>\n";
-	echo "\t\t<td><a href='encounterAdd.php?id=$line[0]'>$line[1]</a></td>\n";
-	echo "\t\t<td>" . date_format(date_create($line[2]), 'd-m-Y') . "</td>\n";
-	echo "\t\t<td>$line[3]</td>\n";
-	echo "\t\t<td>$line[4]</td>\n";
-	echo "\t</tr>\n";
+    echo "\t<tr>\n";
+    echo "\t\t<td><a href='encounterAdd.php?id=$line[0]'>$line[1]</a></td>\n";
+    echo "\t\t<td style=\"white-space: nowrap;overflow: hidden;\">" . date_format(date_create($line[2]), 'd-m-Y') . "</td>\n";
+    echo "\t\t<td>$line[3]</td>\n";
+    echo "\t\t<td>$line[4]</td>\n";
+    echo "\t</tr>\n";
 }
 echo "</tbody></table>\n";
 
 ?>
-</p>
-<span class="WarningElement"><strong class="WarningElement"><a href="temporaryEncounters.php?action=45261728" class="WarningElement">¿Borrar todo?</a></strong></span>
+    </p>
+    <span class="WarningElement"><strong class="WarningElement"><a href="temporaryEncounters.php?action=45261728" class="WarningElement">¿Borrar todo?</a></strong></span>
 <?php
 include ("footer.html");
