@@ -7,7 +7,7 @@ include("models/encounterService.php");
 ?>
 
 <h4>Selección de Item Scrapeados</h4>
-<form action="selectEncounter.php" class="form-inline" method="post">
+<form id="encountersForm" action="selectEncounter.php" class="form-inline" method="post">
     <input type="text" class="span2 search-query search-query-rounded" placeholder="Palabra clave" <?php
     // if a search was made, remember the keyword in the text field
     if ($_POST['txtSearchKeyword'] != '') {
@@ -36,7 +36,7 @@ include("models/encounterService.php");
         ?>>>
     </div>
     <select name="selectEncounterSourceFilter" class="select-inline" data-toggle="tooltip" title="Fuente">
-        <option value="NoSourceFilter" selected="selected">Sin filtrado</option>
+        <option value="NoSourceFilter" selected="selected">Fuente no seleccionada</option>
         <?php
         $querySources = "SELECT DISTINCT fuente FROM encuentro_temporal";
         $result = mysql_query($querySources) or die('Consulta fallida: ' . mysql_error());
@@ -53,18 +53,66 @@ include("models/encounterService.php");
         ?>
     </select>
     <button type="submit" class="btn btn-primary">Buscar</button>
-</form>
+
 <hr>
-<form id="encountersForm" action="encounter_api.php">
+
     <div ng-controller="EncounterControllerAjax as encounter">
-        <input hidden id="action" name="action" value="select">
+        <input type="hidden" id="action" name="action" value="select">
         <div class="btn-toolbar">
             <div class="btn-group" id="actionBar">
                 <a class="btn btn-primary" href="#" data-toggle="tooltip" title="Seleccionar"><i class="fui-check-inverted"></i></a>
                 <a class="btn btn-primary" href="#" data-toggle="tooltip" title="Evaluar"><i class="fui-eye"></i></a>
-                <a class="btn btn-primary" href="#" data-toggle="tooltip" title="Eliminar"><i class="fui-cross-inverted"></i></a>
+                <a class="btn btn-primary confirm-delete" href="#" data-toggle="tooltip" title="Eliminar"><i class="fui-cross-inverted"></i></a>
             </div>
         </div> <!-- /toolbar -->
+
+        <div id="messages">
+            <?php
+            function select_temporal_encounter($selectedEncountersId){
+                ScrapingService::setScrapedDataAsSelected($selectedEncountersId);
+                return $selectedEncountersId;
+            }
+
+            function drop_temporal_encounter($selectedEncountersId){
+                ScrapingService::setScrapedDataAsNotEligible($selectedEncountersId);
+                return $selectedEncountersId;
+            }
+            $possible_url = array("get_temporal_encounter_list", "get_app", "Seleccionar", "Eliminar");
+
+            $value = "Un error a ocurrido";
+
+            if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url))
+            {
+            switch ($_POST["action"])
+            {
+                case "Seleccionar":
+                    if (isset($_POST["selectedEncounters"])) {
+                        $value = is_array($_POST["selectedEncounters"]);
+                        $value = select_temporal_encounter($_POST["selectedEncounters"]);
+                        echo "<div class=\"alert-success moai-alert\">
+                                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+                                    Items se han sido seleccionados exitosamente
+                                </div>";
+                    }
+                    else
+                        $value = "No hay items seleccionados";
+                    break;
+                case "Eliminar":
+                    if (isset($_POST["selectedEncounters"])) {
+                        $value = is_array($_POST["selectedEncounters"]);
+                        $value = drop_temporal_encounter($_POST["selectedEncounters"]);
+                        echo "<div class=\"alert moai-alert\">
+                                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+                                    Items se han sido eliminado exitosamente
+                                </div>";
+                    }
+                    else
+                        $value = "No hay items seleccionados";
+                    break;
+            }
+            }
+            ?>
+        </div>
 
         <table class="table table-bordered" >
             <thead>
