@@ -4,18 +4,29 @@ include ("models/encounterService.php");
 include ("header.php");
 
 if ($_GET['action'] == "45261728") {
-	
-	EncounterService::deleteAllTemporaryEncounters();
-	
-	echo "<meta http-equiv='refresh' content='0;url=temporaryEncounters.php'>";
-	
+
+    EncounterService::deleteAllTemporaryEncounters();
+
+    echo "<meta http-equiv='refresh' content='0;url=temporaryEncounters.php'>";
+
 }
 
 ?>
 
-<h3>Encuentros temporales</h3>
-<p>Este listado corresponde al total de encuentros temporalmente almacenados que provienen de sucesivas ejecuciones de los algoritmos de scraping.</p>
-<p>
+    <h3>Encuentros seleccionados para modelar</h3>
+    <p>Este listado corresponde al total de encuentros temporalmente selecionados que provienen de sucesivas ejecuciones de los algoritmos de scraping.</p>
+    <div id="info-alert" class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Modelar</h4>
+        Presione el encuentro temporar que desea modelar
+    </div>
+    <script type="application/javascript">
+        $( document ).ready(function() {
+            $("#info-alert").fadeTo(3000, 500).slideUp(500, function () {
+                $("#info-alert").alert('close');
+            });
+        });
+    </script>
 <?php
 
 // Imprimir los resultados en HTML
