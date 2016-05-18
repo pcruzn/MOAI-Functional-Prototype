@@ -69,16 +69,25 @@ class EncounterService {
 	}
 	
 	
-	public static function getEncounterTypesCount() {
+	public static function getEncounterTypesCount($keyword=NULL, $type=NULL, $source=NULL) {
 		// query to select all encounter types
-		$encounterTypesCount = 
+		$sql =
 		"SELECT tipo_encuentro.tipo_encuentro, COUNT(*) 
 		FROM encuentro, tipo_encuentro 
-		WHERE encuentro.tipo_encuentro = tipo_encuentro.id
-		GROUP BY tipo_encuentro.tipo_encuentro 
-		ORDER BY tipo_encuentro.tipo_encuentro";
-		
-		$result	 = 	mysql_query($encounterTypesCount) 
+		WHERE encuentro.tipo_encuentro = tipo_encuentro.id";
+
+		if ($source) {
+			$sql .= " AND encuentro.fuente = '$source'";
+		}
+		if($keyword){
+			$sql .= " AND encuentro.descripcion LIKE '%$keyword%'";
+		}
+		if($type)
+			$sql .= " AND encuentro.tipo_encuentro = $type";
+		$sql .= " GROUP BY tipo_encuentro.tipo_encuentro";
+		$sql .= " ORDER BY tipo_encuentro.tipo_encuentro";
+
+		$result	 = 	mysql_query($sql)
 					or die('Consulta fallida: ' . mysql_error());
 		
 		$encounterTypesCount = array();
@@ -91,16 +100,26 @@ class EncounterService {
 		return $encounterTypesCount;
 	}
 	
-	public static function getEncounterHoursCount() {
+	public static function getEncounterHoursCount($keyword=NULL, $type=NULL, $source=NULL) {
 		// query to select all encounter types
-		$encounterHoursCount = 
+		$sql =
 		"SELECT hora.hora, COUNT(*) 
 		FROM encuentro, hora 
-		WHERE encuentro.hora = hora.id 
-		GROUP BY hora.hora 
+		WHERE encuentro.hora = hora.id";
+
+		if ($source) {
+			$sql .= " AND encuentro.fuente = '$source'";
+		}
+		if($keyword){
+			$sql .= " AND encuentro.descripcion LIKE '%$keyword%'";
+		}
+		if($type)
+			$sql .= " AND encuentro.tipo_encuentro = $type";
+
+		$sql .= " GROUP BY hora.hora 
 		ORDER BY hora.hora";
 		
-		$result	 = 	mysql_query($encounterHoursCount) 
+		$result	 = 	mysql_query($sql)
 					or die('Consulta fallida: ' . mysql_error());
 		
 		$encounterHoursCount = array();
@@ -113,14 +132,25 @@ class EncounterService {
 		return $encounterHoursCount;
 	}
 	
-	public static function getEncounterDatesCount() {
+	public static function getEncounterDatesCount($keyword=NULL, $type=NULL, $source=NULL) {
 		// query to select all encounter types
-		$encounterDatesCount = 
+		$sql =
 		"SELECT encuentro.fecha, COUNT(*) 
 		FROM encuentro 
-		GROUP BY encuentro.fecha";
+		WHERE 1 = 1";
+
+		if ($source) {
+			$sql .= " AND encuentro.fuente = '$source'";
+		}
+		if($keyword){
+			$sql .= " AND encuentro.descripcion LIKE '%$keyword%'";
+		}
+		if($type)
+			$sql .= " AND encuentro.tipo_encuentro = $type";
+
+		$sql.=" GROUP BY encuentro.fecha";
 		
-		$result	 = 	mysql_query($encounterDatesCount) 
+		$result	 = 	mysql_query($sql)
 					or die('Consulta fallida: ' . mysql_error());
 		
 		$encounterDatesCount = array();
@@ -146,16 +176,26 @@ class EncounterService {
 	}
 	
 	
-	public static function getEncounterLocalizationCount() {
+	public static function getEncounterLocalizationCount($keyword=NULL, $type=NULL, $source=NULL) {
 		// query to select all encounter types
-		$encounterLocalizationCount = 
+		$sql =
 		"SELECT localizacion_administrativa.localizacion_administrativa, COUNT(*) 
 		FROM encuentro, localizacion_administrativa
 		WHERE localizacion_administrativa.id = encuentro.localizacion_administrativa 
-		AND localizacion_administrativa.localizacion_administrativa IS NOT NULL
-		GROUP BY encuentro.localizacion_administrativa";
+		AND localizacion_administrativa.localizacion_administrativa IS NOT NULL";
+
+		if ($source) {
+			$sql .= " AND encuentro.fuente = '$source'";
+		}
+		if($keyword){
+			$sql .= " AND encuentro.descripcion LIKE '%$keyword%'";
+		}
+		if($type)
+			$sql .= " AND encuentro.tipo_encuentro = $type";
+
+		$sql .= " GROUP BY encuentro.localizacion_administrativa";
 		
-		$result	 = 	mysql_query($encounterLocalizationCount) 
+		$result	 = 	mysql_query($sql)
 					or die('Consulta fallida: ' . mysql_error());
 		
 		$encounterLocalizationCount = array();
@@ -166,6 +206,35 @@ class EncounterService {
 		
 		// return the array containing the values for encounter types
 		return $encounterLocalizationCount;
+	}
+
+	public static function getEncounterCount($keyword=NULL, $type=NULL, $source=NULL) {
+		// query to select all encounter types
+		$sql =
+			"SELECT COUNT(*) 
+		FROM encuentro WHERE 1 = 1";
+
+		if ($source) {
+			$sql .= " AND encuentro.fuente = '$source'";
+		}
+		if($keyword){
+			$sql .= " AND encuentro.descripcion LIKE '%$keyword%'";
+		}
+		if($type)
+			$sql .= " AND encuentro.tipo_encuentro = $type";
+
+		$result	 = 	mysql_query($sql)
+		or die('Consulta fallida: ' . mysql_error());
+
+		$encounterLocalizationCount = array();
+
+		$encounterCount = 0;
+		if ($line = mysql_fetch_array($result, MYSQL_NUM)) {
+			$encounterCount = $line[0];
+		}
+
+		// return the array containing the values for encounter types
+		return $encounterCount;
 	}
 
 	public static function getEncounterMicroLocalizationAndId() {
@@ -181,16 +250,26 @@ class EncounterService {
 	}
 	
 
-	public static function getEncounterMicroLocalizationCount() {
+	public static function getEncounterMicroLocalizationCount($keyword=NULL, $type=NULL, $source=NULL) {
 		// query to select all encounter types
-		$encounterLocalizationCount = 
+		$sql =
 		"SELECT microlocalizacion.microlocalizacion, COUNT(*) 
 		FROM encuentro, microlocalizacion
 		WHERE microlocalizacion.id = encuentro.microlocalizacion 
-		AND microlocalizacion.microlocalizacion IS NOT NULL
-		GROUP BY encuentro.microlocalizacion";
+		AND microlocalizacion.microlocalizacion IS NOT NULL";
+
+		if ($source) {
+			$sql .= " AND encuentro.fuente = '$source'";
+		}
+		if($keyword){
+			$sql .= " AND encuentro.descripcion LIKE '%$keyword%'";
+		}
+		if($type)
+			$sql .= " AND encuentro.tipo_encuentro = $type";
+
+		$sql .= " GROUP BY encuentro.microlocalizacion";
 		
-		$result	 = 	mysql_query($encounterLocalizationCount) 
+		$result	 = 	mysql_query($sql)
 					or die('Consulta fallida: ' . mysql_error());
 		
 		$encounterLocalizationCount = array();
