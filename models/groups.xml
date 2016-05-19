@@ -1,0 +1,6 @@
+<grouping user=''>
+	<group name='father1' type='father' tableAndColumnName='Duracion'>
+		<child>Al menos 3 horas</child>
+		<child>Lo que dura un trámite administrativo</child>
+	</group>
+</grouping>
