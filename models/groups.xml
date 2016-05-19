@@ -1,5 +1,5 @@
-<grouping user=''>
-	<group name='father1' type='father' tableAndColumnName='Duracion'>
+<grouping>
+	<group name='Poquito' type='father' tableAndColumnName='Duracion' user=''>
 		<child>Al menos 3 horas</child>
 		<child>Lo que dura un trámite administrativo</child>
 	</group>
