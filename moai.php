@@ -22,7 +22,13 @@ include("header.php")
                 <p>Modelamiento</p>
             </div>
             <div class="stepwizard-step">
-                <a href="encounterAnalysis.php" type="button" class="fui-eye btn btn-primary btn-circle"></a>
+                <a href="#" type="button" class="fui-eye btn btn-primary btn-circle" data-toggle="dropdown"></a>
+<!--                <a href="#" class="fui-eye dropdown-toggle" data-toggle="dropdown"></a>-->
+                <ul class="dropdown-menu">
+                    <li><a href="createGroup.php">Agrupaciones</a></li>
+                    <li><a href="encounterReport.php">Reporte</a></li>
+                    <li><a href="encounterAnalysis.php">Reporte Gráfico</a></li>
+                </ul>
                 <p>Reporte</p>
             </div>
         </div>

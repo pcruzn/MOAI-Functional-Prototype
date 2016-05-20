@@ -82,7 +82,15 @@
                     <li><a href="scrapeSources.php" class="fui-gear" data-placement="right" title="Configurar Scraper" data-toggle="tooltip"></a></li>
                     <li><a href="selectEncounter.php" class="fui-list-bulleted" data-placement="right" title="Selección" data-toggle="tooltip"></a></li>
                     <li><a href="temporaryEncounters.php" class="fui-link" data-placement="right" title="Modelado" data-toggle="tooltip"></a></li>
-                    <li><a href="encounterAnalysis.php" class="fui-eye" data-placement="right" title="Reporte" data-toggle="tooltip"></a></li>
+<!--                    <li><a href="reportHome.php" class="fui-eye" data-placement="right" title="Reporte" data-toggle="tooltip"></a></li>-->
+                    <li class="dropdown" data-placement="right" title="Reporte" data-toggle="tooltip">
+                        <a href="#" class="fui-eye dropdown-toggle" data-toggle="dropdown"></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="createGroup.php">Agrupaciones</a></li>
+                            <li><a href="encounterReport.php">Reporte</a></li>
+                            <li><a href="encounterAnalysis.php">Reporte Gráfico</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
