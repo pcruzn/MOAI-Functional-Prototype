@@ -64,47 +64,49 @@ if($_GET['action']==2) {
 
 ?>
 
-    <h3>Agrupaciones</h3>
-    <div class="btn-group" data-toggle="buttons-checkbox">
+    <h3>Agrupaciones
+    <div class="form-group pull-right" data-toggle="buttons-checkbox">
         <button class="btn btn-small btn-primary" href="#myModal" data-toggle="modal" >Crear agrupación</button>
-<!--        <button onclick="resetGroup()" class="btn btn-small btn-primary">Reset agrupación</button>-->
+        <!--        <button onclick="resetGroup()" class="btn btn-small btn-primary">Reset agrupación</button>-->
     </div>
+    </h3>
     <!-- Button to trigger modal -->
     <br/>
+    <div>
 
-    <table class="table table-bordered" >
-        <thead>
-        <tr>
-            <th>Agrupación</th>
-            <th>Valores</th>
-            <th>Propiedad</th>
-            <th>Cantidad Encuentros</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        $xml = simplexml_load_file("models/groups.xml") or die("Error: Cannot create XML object");
-        foreach($xml->children() as $father) {
-            $childrenCount = array();
-            $tableAndColumnName = $father['tableAndColumnName'];
-            $groupName = $father['name'];
-            echo "<tr>";
-            echo "<td>$groupName</td>";
-            echo "<td><ul>";
-            foreach ($father as $instance) {
-                echo "<li>$instance</li>";
-                array_push ($childrenCount, (int) SocioService::getCountByChildAttributeOnTable($instance, $tableAndColumnName));
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>Agrupación</th>
+                <th>Valores</th>
+                <th>Propiedad</th>
+                <th>Cantidad Encuentros</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $xml = simplexml_load_file("models/groups.xml") or die("Error: Cannot create XML object");
+            foreach($xml->children() as $father) {
+                $childrenCount = array();
+                $tableAndColumnName = $father['tableAndColumnName'];
+                $groupName = $father['name'];
+                echo "<tr>";
+                echo "<td>$groupName</td>";
+                echo "<td><ul>";
+                foreach ($father as $instance) {
+                    echo "<li>$instance</li>";
+                    array_push ($childrenCount, (int) SocioService::getCountByChildAttributeOnTable($instance, $tableAndColumnName));
+                }
+                echo "</ul></td>";
+                echo "<td>$tableAndColumnName</td>";
+                echo "<td>" . array_sum($childrenCount) . "</td>";
+                echo "<td><a href='createGroup.php?action=2&groupName=$groupName'><button class='btn btn-small btn-danger'>Eliminar</button></a></td>";
             }
-            echo "</ul></td>";
-            echo "<td>$tableAndColumnName</td>";
-            echo "<td>" . array_sum($childrenCount) . "</td>";
-            echo "<td><a href='createGroup.php?action=2&groupName=$groupName'><button class='btn btn-danger'>Eliminar</button></a></td>";
-        }
-        ?>
-        </tbody>
-    </table>
-
+            ?>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Modal -->
     <div id="myModal" class="modal hide fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -115,7 +117,7 @@ if($_GET['action']==2) {
         <div class="modal-body" style="min-height: 250px;">
             <div id="groupError"></div>
             <form action="createGroup.php" id="groupForm" method="POST">
-<!--                <label class="control-label" for="selectProperty">Propiedad</label>-->
+                <!--                <label class="control-label" for="selectProperty">Propiedad</label>-->
                 <div class="control-group">
                     <select id="selectProperty" name="selectProperty" class="select-inline" onchange="loadForm()">
                         <option value="NoSourceFilter" selected="selected">Seleccione Propiedad</option>
@@ -229,8 +231,8 @@ foreach (EncounterService::getEncounterMicroLocalizationCount() as $arrayKey => 
 
             }
         }
-        
-        
+
+
         function loadForm() {
             var zip =[];
             selectProperty()
