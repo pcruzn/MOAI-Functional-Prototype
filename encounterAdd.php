@@ -10,7 +10,6 @@ include ("header.php");
             padding-top: 0px;
         }
     </style><h3>Modelado de Encuentro</h3>
-    <p>Usted está pronto a registrar un encuentro temporalmente almacenado (i.e., proveniente de algún proceso de 'web-scraping' anterior) a la base de datos. </p>
 
 <?php
 
@@ -140,7 +139,7 @@ $temporaryEncounterData = mysql_fetch_array($temporaryEncounterDataDescriptor, M
             <div class="controls">
                 <label class="checkbox primary asdasd" for="boxDelete">
                     <input type="checkbox" checked="checked" name="boxDelete" id="boxDelete" value="1" data-toggle="checkbox" checked=""/>
-                    Eliminar encuentro temporal (web-scraping)
+                    Eliminar encuentro (desde web-scraping)
                 </label>
                 <button type="submit" name="btnSubmit" id="btnSubmit"class="btn btn-inverse">Guardar Encuentro</button>
                 <button type="reset" name="btnClear" id="btnClear" class="btn btn-inverse">Reiniciar</button>
